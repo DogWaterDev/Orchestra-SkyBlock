@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>de.dogwaterdev</groupId>
+  <artifactId>skyblock</artifactId>
+  <name>Orchestra_SkyBlock</name>
+  <version>0.0.1-PRE-ALPHA</version>
+  <packaging>jar</packaging>
+
+  <description>SkyBlock plugin with many features</description>
+    <properties>
+        <author>DogWaterDev</author>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <main.class>de.dogwaterdev.skyblock.SkyBlock</main.class>
+        <foundation.version>6.9.18</foundation.version>
+        <foundation.path>com.github.kangarko</foundation.path>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <reflections.path>org.reflections.Reflections</reflections.path>
+  </properties>
+  <url>dogwaterdev.de</url>
+
+  <repositories>
+      <repository>
+          <id>papermc-repo</id>
+          <url>https://repo.papermc.io/repository/maven-public/</url>
+      </repository>
+      <repository>
+          <id>sonatype</id>
+          <url>https://oss.sonatype.org/content/groups/public/</url>
+      </repository>
+      <repository>
+          <id>jitpack.io</id>
+          <url>https://jitpack.io</url>
+      </repository>
+  </repositories>
+
+  <dependencies>
+      <dependency>
+          <groupId>io.papermc.paper</groupId>
+          <artifactId>paper-api</artifactId>
+          <version>1.20.2-R0.1-SNAPSHOT</version>
+          <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.14.0</version>
+      </dependency>
+      <dependency>
+          <groupId>commons-lang</groupId>
+          <artifactId>commons-lang</artifactId>
+          <version>2.6</version>
+      </dependency>
+      <dependency>
+          <groupId>com.github.kangarko</groupId>
+          <artifactId>Foundation</artifactId>
+          <version>6.9.18</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
+      <dependency>
+          <groupId>org.reflections</groupId>
+          <artifactId>reflections</artifactId>
+          <version>0.10.2</version>
+      </dependency>
+  </dependencies>
+
+    <build>
+        <finalName>${project.name}-${project.version}</finalName>
+        <plugins>
+            <!-- Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Shade Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <relocations>
+                                <!-- Relocate Foundation to prevent conflicts -->
+                                <relocation>
+                                    <pattern>org.mineacademy.fo</pattern>
+                                    <shadedPattern>${project.groupId}.${project.artifactId}.lib.foundation</shadedPattern>
+                                </relocation>
+
+                                <!-- Relocate Reflections -->
+                                <relocation>
+                                    <pattern>org.reflections</pattern>
+                                    <shadedPattern>${project.groupId}.${project.artifactId}.lib.reflections</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

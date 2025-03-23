@@ -1,0 +1,13 @@
+name: SkyBlock
+version: '${project.version}'
+main: de.dogwaterdev.skyblock.SkyBlock
+api-version: '1.20'
+authors: [dogwaterdev]
+description: SkyBlock Plugin fuer MadGrower
+website: dogwaterdev.de
+
+
+commands:
+  sbspawn:
+    description: Teleports you to spawn after 3 seconds
+    alias: sb
