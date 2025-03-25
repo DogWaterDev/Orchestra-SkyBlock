@@ -1,53 +1,6 @@
-//package org.dogwaterdev.skyblock;
-//
-//import org.bukkit.Bukkit;
-//import org.bukkit.World;
-//import org.bukkit.configuration.file.FileConfiguration;
-//import org.bukkit.entity.Player;
-//import org.bukkit.plugin.java.JavaPlugin;
-//import org.dogwaterdev.skyblock.commands.*;
-//import org.dogwaterdev.skyblock.events.PlayerDropItem;
-//import org.dogwaterdev.skyblock.events.PlayerJoin;
-//
-//import java.util.ArrayList;
-//import java.util.logging.Level;
-//
-//public final class SkyBlock extends JavaPlugin {
-//    public static World world ;
-//    public static FileConfiguration config;
-//
-//
-//    @Override
-//    public void onEnable() {
-//        world = Bukkit.getWorld("skyblock");
-//        saveDefaultConfig();
-//        config = getConfig();
-//        // register da commandos con kawasaki, kago, kriko, iestriper
-//        getCommand("sbspawn").setExecutor((new Spawn()));
-//
-//
-//        // register da eventos sin kawasaki, kago, kriko, iestriper
-//        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
-//        getServer().getPluginManager().registerEvents(new PlayerDropItem(), this);
-//
-//
-//        // logging
-//        Bukkit.getLogger().log(Level.INFO, "SkyBlock starting...");
-//
-//    }
-//
-//    public ArrayList<Player> getTeleportingPlayers() {
-//        return this.teleportingPlayers;
-//    }
-//
-//    @Override
-//    public void onDisable() {
-//        Bukkit.getLogger().log(Level.INFO, "SkyBlock disabling...");
-//    }
-//}
-
 package de.dogwaterdev.skyblock;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -56,6 +9,7 @@ import java.util.logging.Logger;
 
 import de.dogwaterdev.komodoperms.PermissionsChecker;
 import de.dogwaterdev.skyblock.commands.SkyBlockCommands;
+import de.dogwaterdev.worldframework.WorldManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.SimpleCommandMap;
@@ -78,9 +32,9 @@ public class SkyBlock extends SimplePlugin implements Listener {
 
     @Override
     protected void onPluginStart() {
-
-        log("test");
-
+        log("Attempting to connect to database....\n");
+        loadDatabase();
+        log("Finished.\n");
         PermissionsChecker.check("de.dogwaterdev");
         cmdFramework = new CommandFramework(this);
         cmdFramework.setInGameOnlyMessage(chatPrefix + "Dieser Befehl darf nur Ingame verwendet werden!");
@@ -116,6 +70,29 @@ public class SkyBlock extends SimplePlugin implements Listener {
     protected void onPluginPreReload() {
 
         //Database.getInstance().close();
+    }
+
+    private void createConfig() {
+        File configFile = new File(getDataFolder(), "config.yml");
+        if (!configFile.exists()) {
+            saveDefaultConfig(); // Copies from src/main/resources/config.yml
+            getLogger().info("config.yml created with default values.");
+        }
+    }
+
+    /**
+     * Loads database settings from the config file.
+     */
+    private void loadDatabase() {
+        String host = getConfig().getString("database.host");
+        int port = getConfig().getInt("database.port");
+        String dbName = getConfig().getString("database.name");
+        String user = getConfig().getString("database.user");
+        String password = getConfig().getString("database.password");
+
+        log("Database settings loaded: " + host + ":" + port);
+        WorldManager.initDatabase(host+ port +dbName, user, password);
+
     }
 
     public static void log(final String message){

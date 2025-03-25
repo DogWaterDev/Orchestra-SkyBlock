@@ -8,14 +8,15 @@ import org.bukkit.WorldCreator;
 import java.util.UUID;
 
 
-class VoidWorld extends CustomWorld {
+@WorldTypeMeta(name = "Void World", customMap = false)
+public class VoidWorld extends CustomWorld {
     private WorldCreator creator;
-    VoidWorld(String name, Long seed, int length, int width, UUID creator) {
-        super(name, seed, length, width, creator);
+    public VoidWorld(String name, Long seed, int chunksX, int chunksZ, UUID creator) {
+        super(name, seed, chunksX, chunksZ, creator);
     }
 
-    VoidWorld(String name, Long seed, int length, int width) {
-        super(name, seed, length, width);
+    public VoidWorld(String name, Long seed, int chunksX, int chunksZ) {
+        super(name, seed, chunksX, chunksZ);
     }
 
     @Override
@@ -24,6 +25,7 @@ class VoidWorld extends CustomWorld {
         creator = new WorldCreator(getName());
         creator.generateStructures(false);
         creator.generator(new VoidChunkGenerator());
+        world = creator.createWorld();
 
         return world;
     }

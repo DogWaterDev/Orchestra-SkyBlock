@@ -1,10 +1,6 @@
 package de.dogwaterdev.worldframework;
 
-import de.dogwaterdev.komodoperms.RequiresPermission;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;

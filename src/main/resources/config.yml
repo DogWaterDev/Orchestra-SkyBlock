@@ -1,13 +1,4 @@
-homepage:
-  url: "madgrower.de"
-
-response-color:
-  rgb: (121, 25, 49)
-
-spawn:
-  xyz: (0, 0, 0)
-
 database:
-  location: server/database/
-  user: root
-  password: fortniteballs
+  location: server/plugins/SkyBlock/database
+  user: myfavoritedeveloperis
+  password: dogwaterdev

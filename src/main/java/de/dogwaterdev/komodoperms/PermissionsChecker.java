@@ -20,14 +20,12 @@ public class PermissionsChecker {
                 .addScanners(Scanners.TypesAnnotated, Scanners.MethodsAnnotated)
                 .addUrls(ClasspathHelper.forPackage(packageName))
         );
-
         Set<Method> methods = reflections.getMethodsAnnotatedWith(RequiresPermission.class);
-
+        log("Method count: " + String.valueOf(methods.size()));
         if (methods.isEmpty()) {
             log("No methods with @RequiresPermission found in package: " + packageName);
             return;
         }
-
         for (Method method : methods) {
             RequiresPermission annotation = method.getAnnotation(RequiresPermission.class);
             log(String.format(

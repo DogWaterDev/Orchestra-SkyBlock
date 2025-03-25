@@ -27,52 +27,52 @@ class VoidChunkGenerator extends ChunkGenerator {
 
             @Override
             public @NotNull Biome getBiome(int i, int i1, int i2) {
-                return null;
+                return Biome.THE_VOID;
             }
 
             @Override
             public void setBlock(int i, int i1, int i2, @NotNull Material material) {
-
+                // No blocks should be set in a void world
             }
 
             @Override
             public void setBlock(int i, int i1, int i2, @NotNull MaterialData materialData) {
-
+                // No blocks should be set in a void world
             }
 
             @Override
             public void setBlock(int i, int i1, int i2, @NotNull BlockData blockData) {
-
+                // No blocks should be set in a void world
             }
 
             @Override
             public void setRegion(int i, int i1, int i2, int i3, int i4, int i5, @NotNull Material material) {
-
+                // No regions should be set in a void world
             }
 
             @Override
             public void setRegion(int i, int i1, int i2, int i3, int i4, int i5, @NotNull MaterialData materialData) {
-
+                // No regions should be set in a void world
             }
 
             @Override
             public void setRegion(int i, int i1, int i2, int i3, int i4, int i5, @NotNull BlockData blockData) {
-
+                // No regions should be set in a void world
             }
 
             @Override
             public @NotNull Material getType(int i, int i1, int i2) {
-                return null;
+                return Material.AIR;
             }
 
             @Override
             public @NotNull MaterialData getTypeAndData(int i, int i1, int i2) {
-                return null;
+                return new MaterialData(Material.AIR);
             }
 
             @Override
             public @NotNull BlockData getBlockData(int i, int i1, int i2) {
-                return null;
+                return Material.AIR.createBlockData();
             }
 
             @Override
